@@ -54,3 +54,54 @@ int main() {
     printf("โหลดและบันทึกข้อมูลเรียบร้อยแล้ว (ยังไม่มีเมนู)\n");
     return 0;
 }
+void display_members() {
+    printf("\n=== Member List ===\n");
+    for (int i = 0; i < memberCount; i++) {
+        printf("%d. %s | %d | %s | %s\n", i + 1,
+               members[i].name, members[i].age,
+               members[i].membershipType, members[i].registrationDate);
+    }
+}
+
+int main() {
+    const char *filename = "members.csv";
+    load_from_csv(filename);
+
+    int choice;
+    while (1) {
+        printf("\n=== Fitness Member Registration System ===\n");
+        printf("1. แสดงข้อมูลสมาชิกทั้งหมด\n");
+        printf("2. ออกจากโปรแกรม\n");
+        printf("เลือกเมนู: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            display_members();
+        } else if (choice == 2) {
+            save_to_csv(filename);
+            printf("บันทึกข้อมูลและออกจากโปรแกรมแล้ว\n");
+            break;
+        } else {
+            printf("กรุณาเลือกเมนูให้ถูกต้อง\n");
+        }
+    }
+    return 0;
+}
+void add_member() {
+    if (memberCount >= MAX_MEMBERS) {
+        printf("ไม่สามารถเพิ่มสมาชิกได้แล้ว (เต็ม)\n");
+        return;
+    }
+    Member m;
+    printf("ชื่อสมาชิก: ");
+    scanf(" %[^\n]", m.name);
+    printf("อายุ: ");
+    scanf("%d", &m.age);
+    printf("ประเภทสมาชิก (Gold/Silver/Bronze): ");
+    scanf("%s", m.membershipType);
+    printf("วันที่ลงทะเบียน (YYYY-MM-DD): ");
+    scanf("%s", m.registrationDate);
+
+    members[memberCount++] = m;
+    printf("เพิ่มสมาชิกเรียบร้อยแล้ว!\n");
+}
