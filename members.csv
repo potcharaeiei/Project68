@@ -1,3 +1,3 @@
 MemberName,Age,MembershipType,RegistrationDate
 John Doe,25,Gold,2025-08-01
-Jane Smith,30,Silver,2025-08-03
+Jane Smith,30,Silver,2025-08-03 // Updated membership type
