@@ -1,4 +1,5 @@
-Name,Age,MembershipType,RegistrationDates
+Name,Age,MembershipType,RegistrationDate
 John Doe,25, "Gold", 2025-08-01,
 Jane Smith,30, "Silver", "2025-08-03
-Jimmy Slick,20,Gold,2025-10-1
+Jimmy Slick,20,Silver,2025-10-1
+Ill Slick,20,sliver,2025-10-1

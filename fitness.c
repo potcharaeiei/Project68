@@ -6,7 +6,6 @@
 #define MAX_MEMBERS 1000
 #define FILE_NAME "members.csv"
 
-// Structure to store fitness member data
 typedef struct {
     char name[50];
     int age;
@@ -14,18 +13,18 @@ typedef struct {
     char registrationDate[20];
 } Member;
 
-// Read data from CSV file
+// อ่านข้อมูลจาก CSV file
 int readCSV(Member members[]) {
     FILE *file = fopen(FILE_NAME, "r");
     if (!file) {
-        printf("⚠️ File %s not found\n", FILE_NAME);
+        printf("File %s not found\n", FILE_NAME);
         return 0;
     }
 
     char line[MAX_LINE];
     int count = 0;
 
-    // Skip header
+    // ข้าม header
     fgets(line, sizeof(line), file);
 
     while (fgets(line, sizeof(line), file)) {
@@ -41,15 +40,15 @@ int readCSV(Member members[]) {
     return count;
 }
 
-// Write all data to CSV file
+// เขียนข้อมูลลง CSV file
 void writeCSV(Member members[], int count) {
     FILE *file = fopen(FILE_NAME, "w");
     if (!file) {
-        printf("❌ Cannot write file\n");
+        printf("Cannot write file\n");
         return;
     }
 
-    // Write header
+    // เขียน header
     fprintf(file, "Name,Age,MembershipType,RegistrationDate\n");
 
     for (int i = 0; i < count; i++) {
@@ -63,7 +62,7 @@ void writeCSV(Member members[], int count) {
     fclose(file);
 }
 
-// Add new member
+// ฟังก์ชั่นที่ 2.เพิ่มสมาชิก
 void addMember(Member members[], int *count) {
     Member newMem;
 
@@ -80,10 +79,10 @@ void addMember(Member members[], int *count) {
     (*count)++;
 
     writeCSV(members, *count);
-    printf("✅ Member added successfully!\n");
+    printf("Member added successfully!\n");
 }
 
-// Search member
+// ฟังก์ชั่นที่ 3.ค้นหาสมาชิก
 void searchMember(Member members[], int count) {
     char keyword[50];
     int found = 0;
@@ -103,11 +102,11 @@ void searchMember(Member members[], int count) {
     }
 
     if (!found) {
-        printf("❌ No member found\n");
+        printf("No member found\n");
     }
 }
 
-// Update member
+// ฟังก์ชั่นที่ 4.อัปเดตสมาชิก
 void updateMember(Member members[], int count) {
     char name[50];
     int found = 0;
@@ -131,18 +130,18 @@ void updateMember(Member members[], int count) {
             scanf(" %[^\n]", members[i].registrationDate);
 
             writeCSV(members, count);
-            printf("✅ Update successful!\n");
+            printf("Update successful!\n");
             found = 1;
             break;
         }
     }
 
     if (!found) {
-        printf("❌ Member not found\n");
+        printf("Member not found\n");
     }
 }
 
-// Delete member
+// ฟังก์ชั่นที่ 5.ลบสมาชิก
 void deleteMember(Member members[], int *count) {
     char name[50];
     int found = 0;
@@ -158,18 +157,18 @@ void deleteMember(Member members[], int *count) {
             (*count)--;
 
             writeCSV(members, *count);
-            printf("✅ Member deleted successfully!\n");
+            printf("Member deleted successfully!\n");
             found = 1;
             break;
         }
     }
 
     if (!found) {
-        printf("❌ Member not found\n");
+        printf("Member not found\n");
     }
 }
 
-// Display menu
+// แสดงเมนู
 void displayMenu() {
     printf("\n===== Fitness Member Management System =====\n");
     printf("1. Show all members\n");
@@ -181,7 +180,6 @@ void displayMenu() {
     printf("Enter your choice: ");
 }
 
-// main
 int main() {
     Member members[MAX_MEMBERS];
     int count = readCSV(members);
@@ -215,10 +213,10 @@ int main() {
                 deleteMember(members, &count);
                 break;
             case 0:
-                printf("👋 Exiting program...\n");
+                printf("Exiting program...\n");
                 break;
             default:
-                printf("⚠️ Invalid choice!\n");
+                printf("Invalid choice!\n");
         }
     } while (choice != 0);
 
