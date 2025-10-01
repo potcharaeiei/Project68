@@ -15,6 +15,7 @@ typedef struct {
 Member members[MAX_MEMBERS];
 int memberCount = 0;
 
+// ฟังก์ชันประกาศ
 void display_menu() {
     printf("\n===== ระบบจัดการสมาชิกฟิตเนส =====\n");
     printf("1. เพิ่มสมาชิกใหม่\n");
@@ -28,6 +29,7 @@ void display_menu() {
     printf("เลือกเมนู: ");
 }
 
+// ฟังก์ชันเพิ่มสมาชิกใหม่
 void add_member() {
     if (memberCount >= MAX_MEMBERS) {
         printf("ไม่สามารถเพิ่มสมาชิกได้ (เต็ม)\n");
@@ -42,6 +44,7 @@ void add_member() {
     scanf(" %[^\n]", m.membershipType);
     printf("ป้อนวันที่สมัคร (YYYY-MM-DD): ");
     scanf(" %[^\n]", m.registrationDate);
+
 
     members[memberCount++] = m;
     printf("เพิ่มข้อมูลสมาชิกเรียบร้อยแล้ว!\n");
@@ -172,5 +175,6 @@ int main() {
     return 0;
 }
 
+//ถ้ารันแล้วเจอปัญหาเรื่องภาษาไทย ให้รันคำสั่งนี้ใน PowerShell ก่อน
 //[Console]::OutputEncoding = [System.Text.Encoding]::UTF8 
 //.\fitness.exe
