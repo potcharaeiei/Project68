@@ -264,3 +264,5 @@ int main() {
     return 0;
 }
 #endif
+/*  gcc fitness.c -o fitness 
+.\fitness  */ 

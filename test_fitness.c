@@ -101,3 +101,5 @@ int main() {
     printf("All tests passed successfully!\n");
     return 0;
 }
+/* gcc fitness.c test_e2e.c -o test_e2e
+./test_e2e */
