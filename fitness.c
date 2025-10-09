@@ -48,7 +48,6 @@ void writeCSV(Member members[], int count) {
         return;
     }
 
-    // เขียน header
     fprintf(file, "Name,Age,MembershipType,RegistrationDate\n");
 
     for (int i = 0; i < count; i++) {
@@ -65,15 +64,35 @@ void writeCSV(Member members[], int count) {
 // ฟังก์ชั่นที่ 2.เพิ่มสมาชิก
 void addMember(Member members[], int *count) {
     Member newMem;
+    int year, month, day;
 
     printf("Enter name: ");
     scanf(" %[^\n]", newMem.name);
     printf("Enter age: ");
     scanf("%d", &newMem.age);
-    printf("Enter membership type (Gold/Silver/Bronze): ");
-    scanf(" %[^\n]", newMem.membershipType);
-    printf("Enter registration date (YYYY-MM-DD): ");
-    scanf(" %[^\n]", newMem.registrationDate);
+
+    //กรอกได้เฉพาะ Gold/Silver/Bronze
+    do {
+        printf("Enter membership type (Gold/Silver/Bronze): ");
+        scanf(" %[^\n]", newMem.membershipType);
+
+        if (strcmp(newMem.membershipType, "Gold") != 0 &&
+            strcmp(newMem.membershipType, "Silver") != 0 &&
+            strcmp(newMem.membershipType, "Bronze") != 0) {
+            printf("Invalid type! Please enter only Gold, Silver, or Bronze.\n");
+        } else {
+            break;
+        }
+    } while (1);
+    
+    printf("Enter registration year (YYYY): ");
+    scanf("%d", &year);
+    printf("Enter registration month (MM): ");
+    scanf("%d", &month);
+    printf("Enter registration day (DD): ");
+    scanf("%d", &day);
+
+    sprintf(newMem.registrationDate, "%04d-%02d-%02d", year, month, day);
 
     members[*count] = newMem;
     (*count)++;
@@ -124,10 +143,31 @@ void updateMember(Member members[], int count) {
 
             printf("New age: ");
             scanf("%d", &members[i].age);
-            printf("New membership type: ");
-            scanf(" %[^\n]", members[i].membershipType);
-            printf("New registration date (YYYY-MM-DD): ");
-            scanf(" %[^\n]", members[i].registrationDate);
+
+            // ตรวจสอบประเภทสมาชิกใหม่
+            do {
+                printf("New membership type (Gold/Silver/Bronze): ");
+                scanf(" %[^\n]", members[i].membershipType);
+
+                if (strcmp(members[i].membershipType, "Gold") != 0 &&
+                    strcmp(members[i].membershipType, "Silver") != 0 &&
+                    strcmp(members[i].membershipType, "Bronze") != 0) {
+                    printf("Invalid type! Please enter only Gold, Silver, or Bronze.\n");
+                } else {
+                    break;
+                }
+            } while (1);
+
+            // ถามปี เดือน วัน ทีละขั้นตอน
+            int year, month, day;
+            printf("Enter new registration year (YYYY): ");
+            scanf("%d", &year);
+            printf("Enter new registration month (MM): ");
+            scanf("%d", &month);
+            printf("Enter new registration day (DD): ");
+            scanf("%d", &day);
+
+            sprintf(members[i].registrationDate, "%04d-%02d-%02d", year, month, day);
 
             writeCSV(members, count);
             printf("Update successful!\n");
@@ -180,6 +220,7 @@ void displayMenu() {
     printf("Enter your choice: ");
 }
 
+#ifndef UNIT_TEST
 int main() {
     Member members[MAX_MEMBERS];
     int count = readCSV(members);
@@ -193,7 +234,7 @@ int main() {
             case 1:
                 printf("\n--- Member List ---\n");
                 for (int i = 0; i < count; i++) {
-                    printf("%s | Age %d | %s | %s\n",
+                    printf("%s | Age %d | %s | %s\n", //ฟังก์ชั่นที่ 1.แสดงสมาชิก
                            members[i].name,
                            members[i].age,
                            members[i].membershipType,
@@ -222,3 +263,4 @@ int main() {
 
     return 0;
 }
+#endif
